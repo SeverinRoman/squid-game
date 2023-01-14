@@ -40,7 +40,7 @@ public class CharacterAnimationController : AnimationController
 
     private void JumpEnd()
     {
-        character.State = CharacterState.Idle;
+        character.State = CharacterState.Climb;
     }
 
     //#endregion

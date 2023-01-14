@@ -109,9 +109,6 @@ public class BaseCharacter : MonoBehaviour
     }
 
 
-
-
-
     //#endregion
 
     //#region private methods
