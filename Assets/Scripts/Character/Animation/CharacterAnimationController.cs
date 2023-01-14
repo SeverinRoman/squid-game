@@ -5,32 +5,29 @@ using UnityEngine;
 //#endregion
 
 
-public class AnimationController : MonoBehaviour
+public class CharacterAnimationController : AnimationController
 {
     //#region editors fields and properties
-
-    public Animations animations = new Animations();
-    public Animator animator;
-
     //#endregion
     //#region public fields and properties
     //#endregion
     //#region private fields and properties
-
-
     //#endregion
 
 
     //#region life-cycle callbacks
-
     //#endregion
 
     //#region public methods
 
+    public void Climb(bool isClimb)
+    {
+        animator.SetBool(animations.character.isClimb, isClimb);
+    }
+
     //#endregion
 
     //#region private methods
-
     //#endregion
 
     //#region event handlers

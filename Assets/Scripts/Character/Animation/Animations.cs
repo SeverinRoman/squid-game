@@ -9,8 +9,7 @@ public class Animations
 {
     public class Character
     {
-        public readonly int speed = Animator.StringToHash("speed");
-        public readonly int isHaveItem = Animator.StringToHash("isHaveItem");
+        public readonly int isClimb = Animator.StringToHash("isClimb");
     }
 
 
