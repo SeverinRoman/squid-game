@@ -2,5 +2,7 @@ public enum LayerType
 {
     None = -1,
     Player = 6,
-    Ground = 7,
+    Ladders = 8,
+    Ragdoll = 9,
+    Enemy = 10,
 }

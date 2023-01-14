@@ -1,4 +1,5 @@
 //#region import
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,8 @@ public class Ladders : MonoBehaviour
 
     void Awake()
     {
+        SetCurrentSpeed();
+
         MoveLadders();
         StopMove();
     }
@@ -34,10 +37,19 @@ public class Ladders : MonoBehaviour
         StartMove();
     }
 
+    void OnEnable()
+    {
+        GameEventManager.ChangeLevelSpeed.AddListener(OnChangeLevelSpeed);
+    }
+
+    void OnDisable()
+    {
+        GameEventManager.ChangeLevelSpeed.RemoveListener(OnChangeLevelSpeed);
+    }
+
     //#endregion
 
     //#region public methods
-
 
     public void StartMove()
     {
@@ -54,19 +66,35 @@ public class Ladders : MonoBehaviour
 
     //#region private methods
 
+    private void SetCurrentSpeed()
+    {
+        float speed = 1;
+        Action<float> callback = (value) =>
+        {
+            speed = value;
+        };
+        GameEventManager.GetLevelSpeed?.Invoke(callback);
+
+        tweenMove.duration /= speed;
+    }
+
     private void MoveLadders()
     {
         tweenMove.tween = holderLadders.transform.DOLocalMove(tweenMove.transformPosition, tweenMove.duration);
         tweenMove.tween.SetEase(tweenMove.easing);
         tweenMove.tween.SetLoops(tweenMove.loops, tweenMove.loopType);
-
-        tweenMove.tween.OnComplete(() =>
-        {
-        });
     }
 
     //#endregion
 
     //#region event handlers
+
+    protected void OnChangeLevelSpeed()
+    {
+        Debug.Log("AAAA");
+        SetCurrentSpeed();
+    }
+
+
     //#endregion
 }

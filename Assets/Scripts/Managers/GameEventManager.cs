@@ -36,4 +36,9 @@ public static class GameEventManager
 
     //LoadScreen
     public static UnityEvent<float> ChangeProgressValue = new();
+
+    //LevelSpeedManager
+    public static UnityEvent<float> SetLevelSpeed = new();
+    public static UnityEvent<Action<float>> GetLevelSpeed = new();
+    public static UnityEvent ChangeLevelSpeed = new();
 }

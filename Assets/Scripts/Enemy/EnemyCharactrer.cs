@@ -5,55 +5,43 @@ using UnityEngine;
 //#endregion
 
 
-public class CollisionController : MonoBehaviour
+public class EnemyCharactrer : BaseCharacter
 {
     //#region editors fields and properties
     //#endregion
     //#region public fields and properties
     //#endregion
     //#region private fields and properties
-
     //#endregion
 
 
     //#region life-cycle callbacks
-
     //#endregion
 
     //#region public methods
-
-
     //#endregion
 
     //#region private methods
 
+    private void ChangeGameSpeed()
+    {
 
+    }
 
     //#endregion
 
     //#region event handlers
 
-    void OnCollisionEnter(Collision collision)
+    protected void OnTriggerEnter(Collider other)
     {
-        GameObject otherGameObject = collision.gameObject;
-
-        switch (otherGameObject.layer)
+        switch (other.gameObject.layer)
         {
-            case ((int)LayerType.Ground):
-
+            case ((int)LayerType.Player):
+                ChangeGameSpeed();
+                State = CharacterState.Death;
                 break;
         }
-    }
 
-    void OnCollisionExit(Collision collision)
-    {
-        GameObject otherGameObject = collision.gameObject;
-
-        switch (otherGameObject.layer)
-        {
-            case ((int)LayerType.Ground):
-                break;
-        }
 
     }
 

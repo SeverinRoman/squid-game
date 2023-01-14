@@ -1,5 +1,118 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1177814380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1177814381}
+  - component: {fileID: 1177814382}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1177814381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177814380}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1413885719324461583}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1177814382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1177814380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0bbd233b75a99d4a96af1bc647bb7de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delaySpawn: 10
+  randomeDelaySpawn: 5
+  spawnPosition: {x: 0, y: 10, z: 0}
+  endPosition: {x: 0, y: -8, z: 0}
+  randomeRangePosition: 2.5
+  enemy: {fileID: 6570849044575529933, guid: 3e58c1ca4a2aea04d9ae2f4eedcc2d62, type: 3}
+  world: {fileID: 0}
+  tweenMove:
+    duration: 40
+    easing: 1
+    onLoop: 0
+    loops: -1
+    loopType: 2
+    isTransform: 0
+    transformPosition: {x: 0, y: 0, z: 0}
+    transformRotation: {x: 0, y: 0, z: 0}
+    transformScale: {x: 0, y: 0, z: 0}
+    isJump: 0
+    jumpPower: 0
+    numJump: 0
+    isShake: 0
+    strength: 0
+    vibrato: 0
+    randomess: 0
+--- !u!1 &1454598122
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1454598123}
+  - component: {fileID: 1454598124}
+  m_Layer: 0
+  m_Name: SpeedLevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1454598123
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454598122}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1413885719324461583}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1454598124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454598122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aaf04653ddbd5e4ba57bed4ddaa24c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
 --- !u!1 &1413885719324461582
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,6 +147,8 @@ Transform:
   - {fileID: 1413885720724733660}
   - {fileID: 8581228369002198724}
   - {fileID: 2975497270950111711}
+  - {fileID: 1177814381}
+  - {fileID: 1454598123}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -82,8 +197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelConfigs:
-  - type: 1
-    sceneName: Main Menu
   - type: 2
     sceneName: Main
 --- !u!1 &1413885720096934354
@@ -178,7 +291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolConfigs: []
   isDebug: 0
-  debugGameObjectType: 0
+  debugGameObjectType: 100
 --- !u!1 &1413885721059338635
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faf86f1ac2c251c4095a055fd0c58908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatingJoystick: {fileID: 0}
 --- !u!1 &4175867610935933480
 GameObject:
   m_ObjectHideFlags: 0

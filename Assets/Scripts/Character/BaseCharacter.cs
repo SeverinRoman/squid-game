@@ -20,6 +20,7 @@ public class BaseCharacter : MonoBehaviour
     //#region editors fields and properties
 
     [SerializeField] private CharacterAnimationController characterAnimationController;
+    [SerializeField] private RagdollController ragdollController;
 
     //#endregion
     //#region public fields and properties
@@ -53,7 +54,6 @@ public class BaseCharacter : MonoBehaviour
     void Start()
     {
         State = CharacterState.Climb;
-        State = CharacterState.Jump;
     }
 
     //#endregion
@@ -104,7 +104,8 @@ public class BaseCharacter : MonoBehaviour
 
     public virtual void Death()
     {
-        characterAnimationController.Climb(false);
+        // characterAnimationController.Climb(false);
+        ragdollController.ToggleRagdoll(true);
         // Destroy(gameObject);
     }
 
@@ -116,6 +117,9 @@ public class BaseCharacter : MonoBehaviour
     //#endregion
 
     //#region event handlers
+
+
+
     //#endregion
 }
 
