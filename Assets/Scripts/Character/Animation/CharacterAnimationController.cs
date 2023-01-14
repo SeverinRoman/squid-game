@@ -25,6 +25,11 @@ public class CharacterAnimationController : AnimationController
         animator.SetBool(animations.character.isClimb, isClimb);
     }
 
+    public void Jump()
+    {
+        animator.SetTrigger(animations.character.jump);
+    }
+
     //#endregion
 
     //#region private methods

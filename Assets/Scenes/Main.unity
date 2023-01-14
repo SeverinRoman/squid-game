@@ -1034,6 +1034,21 @@ PrefabInstance:
       propertyPath: holder
       value: 
       objectReference: {fileID: 1291934409}
+    - target: {fileID: 1413885720033083186, guid: 7d88c18927f80324883e65af3583916b,
+        type: 3}
+      propertyPath: levelConfigs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413885720033083186, guid: 7d88c18927f80324883e65af3583916b,
+        type: 3}
+      propertyPath: levelConfigs.Array.data[0].type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1413885720033083186, guid: 7d88c18927f80324883e65af3583916b,
+        type: 3}
+      propertyPath: levelConfigs.Array.data[0].sceneName
+      value: Main
+      objectReference: {fileID: 0}
     - target: {fileID: 1413885720096934352, guid: 7d88c18927f80324883e65af3583916b,
         type: 3}
       propertyPath: world
