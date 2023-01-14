@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private MovingController _movingController;
 
-    private bool isRun = false;
+    private bool isClimb = false;
 
     //#endregion
 
@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour
 
     private void Move(Vector2 input)
     {
-        _movingController.MoveX(input);
     }
 
     private void Jump()
@@ -58,9 +57,9 @@ public class PlayerController : MonoBehaviour
         _movingController.Jump();
     }
 
-    private void Run()
+    private void Climb()
     {
-        _movingController.Run();
+        _movingController.Climb();
     }
 
     //#endregion
@@ -83,7 +82,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case ButtonType.Run:
                 {
-                    Run();
+                    // Run();
                 }
                 break;
             default:

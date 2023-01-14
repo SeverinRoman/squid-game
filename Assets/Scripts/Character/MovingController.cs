@@ -19,11 +19,11 @@ public class MovingController : MonoBehaviour
     //#region private fields and properties
 
     private CollisionController _collisionController;
-    private Rigidbody2D _rigidbody;
+    private Rigidbody _rigidbody;
 
     private AnimationController _animationController;
 
-    private bool isRun = false;
+    private bool isClimb = false;
 
     //#endregion
 
@@ -32,47 +32,17 @@ public class MovingController : MonoBehaviour
 
     void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
+        _rigidbody = GetComponent<Rigidbody>();
         _collisionController = GetComponent<CollisionController>();
         _animationController = GetComponent<AnimationController>();
-    }
-
-    private void FixedUpdate()
-    {
-        CheackChangeWalk();
     }
 
     //#endregion
 
     //#region public methods
-
-    public void MoveX(Vector2 direction)
+    public void Climb()
     {
-        if (direction == null || Vector2.zero == direction) return;
-
-        _animationController.FlipX(direction);
-
-
-        float speed = speedWalk;
-        if (isRun)
-        {
-            speed = speedRun;
-        }
-
-        _rigidbody.velocity = new Vector2(direction.x * speed, _rigidbody.velocity.y);
-    }
-
-    public void CheackChangeWalk()
-    {
-        if (GetCurrentSpeed() <= 0f)
-        {
-            isRun = false;
-        }
-    }
-
-    public void Run()
-    {
-        this.isRun = true;
+        this.isClimb = true;
     }
 
     public float GetCurrentSpeed()
@@ -82,10 +52,7 @@ public class MovingController : MonoBehaviour
 
     public void Jump()
     {
-        if (!_collisionController.GetIsGrounded()) return;
 
-        _animationController.Jump();
-        _rigidbody.AddForce(Vector2.up * forceJump, ForceMode2D.Impulse);
     }
 
     //#endregion
