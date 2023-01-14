@@ -35,8 +35,13 @@ public class EnemyManager : MonoBehaviour
 
     void Awake()
     {
-        SetCurrentSpeed();
         StartSpawn();
+    }
+
+    void Start()
+    {
+        SetCurrentSpeed();
+
     }
 
     void OnEnable()
@@ -76,9 +81,17 @@ public class EnemyManager : MonoBehaviour
             speed = value;
         };
         GameEventManager.GetLevelSpeed?.Invoke(callback);
-        randomeDelaySpawn /= speed;
-        delaySpawn /= speed;
-        tweenMove.duration /= speed;
+
+        tweenSpawn.timeScale = speed;
+
+
+        if (tweenMove.tweens.Count > 0)
+        {
+            foreach (Tween tween in tweenMove.tweens)
+            {
+                tween.timeScale = speed;
+            }
+        }
     }
 
     [NaughtyAttributes.Button]
@@ -99,10 +112,22 @@ public class EnemyManager : MonoBehaviour
         tweenMove.tween = enemy.transform.DOLocalMove(endPosition, tweenMove.duration);
         tweenMove.tween.SetEase(tweenMove.easing);
 
+
+        float speed = 1;
+        Action<float> callback = (value) =>
+        {
+            speed = value;
+        };
+        GameEventManager.GetLevelSpeed?.Invoke(callback);
+
+        tweenMove.tween.timeScale = speed;
+
         tweenMove.tween.OnComplete(() =>
         {
             Destroy(enemy);
         });
+
+        tweenMove.tweens.Add(tweenMove.tween);
     }
 
 

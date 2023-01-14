@@ -19,6 +19,7 @@ public class Ladders : MonoBehaviour
     //#region public fields and properties
     //#endregion
     //#region private fields and properties
+    private float speedLadder;
     //#endregion
 
 
@@ -26,14 +27,12 @@ public class Ladders : MonoBehaviour
 
     void Awake()
     {
-        SetCurrentSpeed();
-
         MoveLadders();
         StopMove();
     }
     void Start()
     {
-        // MoveLadders(holderLadders);
+        SetCurrentSpeed();
         StartMove();
     }
 
@@ -75,7 +74,9 @@ public class Ladders : MonoBehaviour
         };
         GameEventManager.GetLevelSpeed?.Invoke(callback);
 
-        tweenMove.duration /= speed;
+
+
+        tweenMove.tween.timeScale = speed;
     }
 
     private void MoveLadders()
@@ -91,7 +92,6 @@ public class Ladders : MonoBehaviour
 
     protected void OnChangeLevelSpeed()
     {
-        Debug.Log("AAAA");
         SetCurrentSpeed();
     }
 

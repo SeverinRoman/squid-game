@@ -21,6 +21,11 @@ public class SpeedLevelManager : MonoBehaviour
 
     //#region life-cycle callbacks
 
+    void Start()
+    {
+        GameEventManager.ChangeLevelSpeed?.Invoke();
+    }
+
     void OnEnable()
     {
         GameEventManager.SetLevelSpeed.AddListener(OnSetLevelSpeed);

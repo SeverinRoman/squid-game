@@ -18,12 +18,12 @@ public class CharacterAnimationController : AnimationController
     //#region public fields and properties
     //#endregion
     //#region private fields and properties
-
     //#endregion
 
 
     //#region life-cycle callbacks
-    void Awake()
+
+    void Start()
     {
         SetCurrentSpeed();
     }
@@ -44,7 +44,6 @@ public class CharacterAnimationController : AnimationController
     public void Climb(bool isClimb)
     {
         animator.SetBool(animations.character.isClimb, isClimb);
-        animator.speed = speedClimb;
     }
 
     public void Jump()
@@ -65,9 +64,7 @@ public class CharacterAnimationController : AnimationController
         };
         GameEventManager.GetLevelSpeed?.Invoke(callback);
 
-        speedClimb *= speed;
-
-        animator.speed = speedClimb;
+        animator.speed = speedClimb * speed;
     }
 
     private void JumpEnd()
