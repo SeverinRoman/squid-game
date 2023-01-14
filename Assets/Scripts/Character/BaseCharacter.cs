@@ -11,6 +11,7 @@ public enum CharacterState
 {
     Idle = 0,
     Climb = 1,
+    Jump = 2,
     Death = 3,
 }
 
@@ -52,6 +53,7 @@ public class BaseCharacter : MonoBehaviour
     void Start()
     {
         State = CharacterState.Climb;
+        State = CharacterState.Jump;
     }
 
     //#endregion
@@ -72,6 +74,11 @@ public class BaseCharacter : MonoBehaviour
                     Climb();
                 }
                 break;
+            case CharacterState.Jump:
+                {
+                    Jump();
+                }
+                break;
             case CharacterState.Death:
                 {
                     Death();
@@ -83,14 +90,16 @@ public class BaseCharacter : MonoBehaviour
     public virtual void Idle()
     {
         characterAnimationController.Climb(false);
-        // Destroy(gameObject);
     }
 
+    public virtual void Jump()
+    {
+        characterAnimationController.Jump();
+    }
 
     public virtual void Climb()
     {
         characterAnimationController.Climb(true);
-        // Destroy(gameObject);
     }
 
     public virtual void Death()
