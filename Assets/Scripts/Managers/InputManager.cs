@@ -8,6 +8,9 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     //#region editors fields and properties
+
+    [SerializeField] private FloatingJoystick floatingJoystick;
+
     //#endregion
     //#region public fields and properties
     //#endregion
@@ -34,6 +37,7 @@ public class InputManager : MonoBehaviour
     {
         // GamepadAxis();
         KeybordAxis();
+        JoystickAxis();
     }
 
     private void GamepadAxis()
@@ -42,6 +46,11 @@ public class InputManager : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         GameEventManager.InputAxis?.Invoke(new Vector2(horizontalInput, verticalInput));
+    }
+    private void JoystickAxis()
+    {
+
+        GameEventManager.InputAxis?.Invoke(new Vector2(floatingJoystick.Horizontal, floatingJoystick.Vertical));
     }
 
     private void KeybordAxis()

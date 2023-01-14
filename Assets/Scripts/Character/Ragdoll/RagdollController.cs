@@ -93,7 +93,7 @@ public class RagdollController : MonoBehaviour
         }
         if (gameObject.TryGetComponent<Rigidbody>(out Rigidbody body))
         {
-            body.useGravity = isOn;
+            // body.useGravity = isOn;
         }
     }
 

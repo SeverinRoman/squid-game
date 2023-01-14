@@ -9,12 +9,12 @@ public class PlayerController : MonoBehaviour
 {
     //#region editors fields and properties
 
+    [SerializeField] MovementController movingController;
+
     //#endregion
     //#region public fields and properties
     //#endregion
     //#region private fields and properties
-
-    private MovingController _movingController;
 
     private bool isClimb = false;
 
@@ -22,11 +22,6 @@ public class PlayerController : MonoBehaviour
 
 
     //#region life-cycle callbacks
-
-    void Awake()
-    {
-        _movingController = GetComponent<MovingController>();
-    }
 
 
     void OnEnable()
@@ -50,16 +45,17 @@ public class PlayerController : MonoBehaviour
 
     private void Move(Vector2 input)
     {
+        movingController.Move(input.x, 0f);
     }
 
     private void Jump()
     {
-        _movingController.Jump();
+        // _movingController.Jump();
     }
 
     private void Climb()
     {
-        _movingController.Climb();
+        // _movingController.Climb();
     }
 
     //#endregion

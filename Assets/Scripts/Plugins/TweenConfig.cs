@@ -18,7 +18,8 @@ public class TweenConfig
 
     [Header("Transform")]
     public bool isTransform = false;
-    [ShowIf("isTransform")][AllowNesting] public Pose transformPositionRotation;
+    [ShowIf("isTransform")][AllowNesting] public Vector3 transformPosition;
+    [ShowIf("isTransform")][AllowNesting] public Vector3 transformRotation;
     [ShowIf("isTransform")][AllowNesting] public Vector3 transformScale;
 
     [Header("Jump")]
@@ -33,5 +34,25 @@ public class TweenConfig
     [ShowIf("isShake")][AllowNesting] public int randomess;
 
     public Sequence sequence = null;
+
+    public Tweener tweener = null;
     public Tween tween = null;
+    public List<Tween> tweens = new List<Tween>();
+
+
+    public void PlayAllTweens()
+    {
+        foreach (Tween tween in tweens)
+        {
+            tween.Play();
+        }
+    }
+
+    public void PauseAllTweens()
+    {
+        foreach (Tween tween in tweens)
+        {
+            tween.Pause();
+        }
+    }
 }
