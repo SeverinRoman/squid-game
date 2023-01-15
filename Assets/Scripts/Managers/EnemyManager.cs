@@ -34,11 +34,13 @@ public class EnemyManager : MonoBehaviour
 
     void OnEnable()
     {
+        GameEventManager.PlayerDeath.AddListener(OnPlayerDeath);
         GameEventManager.KillFirstEnemy.AddListener(OnKillFirstEnemy);
     }
 
     void OnDisable()
     {
+        GameEventManager.PlayerDeath.RemoveListener(OnPlayerDeath);
         GameEventManager.ChangeLevelSpeed.RemoveListener(OnChangeLevelSpeed);
         GameEventManager.KillFirstEnemy.RemoveListener(OnKillFirstEnemy);
     }
@@ -135,6 +137,11 @@ public class EnemyManager : MonoBehaviour
         StartSpawn();
         GameEventManager.KillFirstEnemy.RemoveListener(OnKillFirstEnemy);
         GameEventManager.ChangeLevelSpeed.AddListener(OnChangeLevelSpeed);
+    }
+
+    protected void OnPlayerDeath()
+    {
+        tweenSpawn.Pause();
     }
 
     //#endregion

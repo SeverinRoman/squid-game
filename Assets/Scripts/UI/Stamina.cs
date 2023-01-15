@@ -55,6 +55,8 @@ public class Stamina : MonoBehaviour
         progress.fillAmount += stepChangeStamina;
 
         GameEventManager.SetLevelSpeed?.Invoke(progress.fillAmount);
+
+        CheackColorProgress();
     }
 
     private void IncreaseStamina()
@@ -65,6 +67,24 @@ public class Stamina : MonoBehaviour
         progress.fillAmount -= (step * Time.deltaTime);
 
         GameEventManager.SetLevelSpeed?.Invoke(progress.fillAmount);
+
+        CheackColorProgress();
+    }
+
+    private void CheackColorProgress()
+    {
+        if (progress.fillAmount < 0.3f)
+        {
+            progress.color = Color.red;
+        }
+        else if (progress.fillAmount < 0.6f)
+        {
+            progress.color = Color.magenta;
+        }
+        else if (progress.fillAmount < 0.8f)
+        {
+            progress.color = Color.green;
+        }
     }
 
     //#endregion

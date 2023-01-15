@@ -19,6 +19,11 @@ public class PlayerCharacter : BaseCharacter
     //#endregion
 
     //#region public methods
+    public override void Death()
+    {
+        base.Death();
+        GameEventManager.PlayerDeath?.Invoke();
+    }
     //#endregion
 
     //#region private methods

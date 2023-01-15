@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -31,11 +32,13 @@ public class UIManager : MonoBehaviour
     }
     private void OnEnable()
     {
+        GameEventManager.PlayerDeath.AddListener(OnShowLose);
         GameEventManager.ToggleScreen.AddListener(OnToggleScreen);
     }
 
     private void OnDisable()
     {
+        GameEventManager.PlayerDeath.RemoveListener(OnShowLose);
         GameEventManager.ToggleScreen.RemoveListener(OnToggleScreen);
     }
 
@@ -54,5 +57,12 @@ public class UIManager : MonoBehaviour
     protected void OnToggleScreen(UIScreenType type, bool isOn)
     {
         ToggleScreen(type, isOn);
+    }
+
+    protected void OnShowLose()
+    {
+        ToggleScreen(UIScreenType.Ingame, false);
+
+        DOVirtual.DelayedCall(2, () => ToggleScreen(UIScreenType.LoseScreen, true));
     }
 }

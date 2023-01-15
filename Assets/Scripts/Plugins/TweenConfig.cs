@@ -39,7 +39,11 @@ public class TweenConfig
     public Tween tween = null;
     public List<Tween> tweens = new List<Tween>();
 
-
+    public void SetSettingsTween()
+    {
+        tween.SetEase(easing);
+        tween.SetLoops(loops, loopType);
+    }
     public void PlayAllTweens()
     {
         foreach (Tween tween in tweens)

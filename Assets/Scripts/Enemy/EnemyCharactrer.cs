@@ -21,11 +21,8 @@ public class EnemyCharactrer : BaseCharacter
     //#endregion
 
     //#region public methods
-    //#endregion
 
-    //#region private methods
-
-    private void CollidePlayer()
+    public virtual void CollidePlayer(GameObject player)
     {
         GameEventManager.KillFirstEnemy?.Invoke();
         State = CharacterState.Death;
@@ -34,16 +31,31 @@ public class EnemyCharactrer : BaseCharacter
         GameEventManager.ChangeStamina?.Invoke();
     }
 
+    public virtual void CollideEnemy(GameObject enemy)
+    {
+        State = CharacterState.Death;
+    }
+
+    //#endregion
+
+    //#region private methods
+
+
+
     //#endregion
 
     //#region event handlers
 
     protected void OnTriggerEnter(Collider other)
     {
-        switch (other.gameObject.layer)
+        GameObject gameObject = other.gameObject;
+        switch (gameObject.layer)
         {
             case ((int)LayerType.Player):
-                CollidePlayer();
+                CollidePlayer(gameObject);
+                break;
+            case ((int)LayerType.Enemy):
+                CollideEnemy(gameObject);
                 break;
         }
     }

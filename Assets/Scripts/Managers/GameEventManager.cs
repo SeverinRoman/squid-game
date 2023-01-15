@@ -49,4 +49,8 @@ public static class GameEventManager
     //Stamina
     public static UnityEvent ChangeStamina = new();
 
+    //PlayerCharacter
+    public static UnityEvent PlayerDeath = new();
+
+
 }

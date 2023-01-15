@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using System;
 using NaughtyAttributes;
+using DG.Tweening;
 
 public class LevelManager : MonoBehaviour
 {
@@ -61,6 +62,7 @@ public class LevelManager : MonoBehaviour
 
     public void RestartLevel()
     {
+        DOTween.KillAll();
         GameEventManager.LoadScene?.Invoke(SceneManager.GetActiveScene().name);
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

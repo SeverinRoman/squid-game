@@ -5,4 +5,5 @@ public enum UIScreenType
     Tutorial,
     StartScreen,
     LoadScreen,
+    LoseScreen,
 }

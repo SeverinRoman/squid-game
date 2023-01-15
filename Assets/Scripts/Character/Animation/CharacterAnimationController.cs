@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using DG.Tweening;
 //#endregion
 
 
@@ -13,6 +14,8 @@ public class CharacterAnimationController : AnimationController
 
     [SerializeField] private BaseCharacter character;
     [SerializeField] private float speedClimb = 1;
+
+    [SerializeField] private float randomDelayClimb = 1;
 
     //#endregion
     //#region public fields and properties
@@ -43,7 +46,7 @@ public class CharacterAnimationController : AnimationController
 
     public void Climb(bool isClimb)
     {
-        animator.SetBool(animations.character.isClimb, isClimb);
+        DOVirtual.DelayedCall(UnityEngine.Random.Range(0, randomDelayClimb), () => animator.SetBool(animations.character.isClimb, isClimb));
     }
 
     public void Jump()

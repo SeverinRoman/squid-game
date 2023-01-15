@@ -38,11 +38,13 @@ public class Ladders : MonoBehaviour
 
     void OnEnable()
     {
+        GameEventManager.PlayerDeath.AddListener(OnPlayerDeath);
         GameEventManager.ChangeLevelSpeed.AddListener(OnChangeLevelSpeed);
     }
 
     void OnDisable()
     {
+        GameEventManager.PlayerDeath.AddListener(OnPlayerDeath);
         GameEventManager.ChangeLevelSpeed.RemoveListener(OnChangeLevelSpeed);
     }
 
@@ -94,6 +96,14 @@ public class Ladders : MonoBehaviour
     {
         SetCurrentSpeed();
     }
+
+    protected void OnPlayerDeath()
+    {
+        tweenMove.tween.Pause();
+    }
+
+
+
 
 
     //#endregion
