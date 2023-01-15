@@ -54,14 +54,16 @@ public class SpeedLevelManager : MonoBehaviour
     {
         float newSpeed = MaxSpeed * speed;
 
-        if (newSpeed < this.speed)
-        {
-            this.speed = startSpeed;
-            return;
-        }
 
-        Debug.Log(speed);
-        this.speed = newSpeed;
+
+        if (newSpeed > MaxSpeed)
+        {
+            this.speed = MaxSpeed;
+        }
+        else
+        {
+            this.speed = newSpeed + startSpeed;
+        }
 
         GameEventManager.ChangeLevelSpeed?.Invoke();
     }
