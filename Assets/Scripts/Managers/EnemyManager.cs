@@ -33,25 +33,15 @@ public class EnemyManager : MonoBehaviour
 
     //#region life-cycle callbacks
 
-    void Awake()
-    {
-        StartSpawn();
-    }
-
-    void Start()
-    {
-        SetCurrentSpeed();
-
-    }
-
     void OnEnable()
     {
-        GameEventManager.ChangeLevelSpeed.AddListener(OnChangeLevelSpeed);
+        GameEventManager.KillFirstEnemy.AddListener(OnKillFirstEnemy);
     }
 
     void OnDisable()
     {
         GameEventManager.ChangeLevelSpeed.RemoveListener(OnChangeLevelSpeed);
+        GameEventManager.KillFirstEnemy.RemoveListener(OnKillFirstEnemy);
     }
 
     //#endregion
@@ -67,6 +57,7 @@ public class EnemyManager : MonoBehaviour
         });
 
         SpawnEnemy();
+        SetCurrentSpeed();
     }
 
     //#endregion
@@ -138,6 +129,13 @@ public class EnemyManager : MonoBehaviour
     protected void OnChangeLevelSpeed()
     {
         SetCurrentSpeed();
+    }
+
+    protected void OnKillFirstEnemy()
+    {
+        StartSpawn();
+        GameEventManager.KillFirstEnemy.RemoveListener(OnKillFirstEnemy);
+        GameEventManager.ChangeLevelSpeed.AddListener(OnChangeLevelSpeed);
     }
 
     //#endregion

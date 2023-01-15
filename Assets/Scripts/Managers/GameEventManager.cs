@@ -41,4 +41,9 @@ public static class GameEventManager
     public static UnityEvent<float> SetLevelSpeed = new();
     public static UnityEvent<Action<float>> GetLevelSpeed = new();
     public static UnityEvent ChangeLevelSpeed = new();
+
+
+    //Enemy
+    public static UnityEvent KillFirstEnemy = new();
+
 }

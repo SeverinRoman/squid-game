@@ -8,10 +8,13 @@ using UnityEngine;
 public class EnemyCharactrer : BaseCharacter
 {
     //#region editors fields and properties
+
+
     //#endregion
     //#region public fields and properties
     //#endregion
     //#region private fields and properties
+
     //#endregion
 
 
@@ -23,11 +26,6 @@ public class EnemyCharactrer : BaseCharacter
 
     //#region private methods
 
-    private void ChangeGameSpeed()
-    {
-
-    }
-
     //#endregion
 
     //#region event handlers
@@ -37,7 +35,7 @@ public class EnemyCharactrer : BaseCharacter
         switch (other.gameObject.layer)
         {
             case ((int)LayerType.Player):
-                ChangeGameSpeed();
+                GameEventManager.KillFirstEnemy?.Invoke();
                 State = CharacterState.Death;
                 break;
         }
