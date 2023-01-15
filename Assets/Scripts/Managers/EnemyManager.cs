@@ -11,7 +11,6 @@ public class EnemyManager : MonoBehaviour
 {
     //#region editors fields and properties
     [SerializeField] private float delaySpawn;
-    [SerializeField] private float randomeDelaySpawn;
 
     [SerializeField] private Vector3 spawnPosition;
     [SerializeField] private Vector3 endPosition;
@@ -50,7 +49,7 @@ public class EnemyManager : MonoBehaviour
 
     public void StartSpawn()
     {
-        tweenSpawn = DOVirtual.DelayedCall(UnityEngine.Random.Range(delaySpawn - randomeDelaySpawn, delaySpawn + randomeDelaySpawn), SpawnEnemy);
+        tweenSpawn = DOVirtual.DelayedCall(delaySpawn, SpawnEnemy);
         tweenSpawn.OnComplete(() =>
         {
             tweenSpawn.Restart();

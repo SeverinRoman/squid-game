@@ -1196,6 +1196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2119881810}
+  - component: {fileID: 2119881811}
   m_Layer: 5
   m_Name: Stamina
   m_TagString: Untagged
@@ -1225,6 +1226,22 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2119881811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119881809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaff77a691e60ec43889f5b183bc1171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progress: {fileID: 2009510357}
+  startProgress: 0
+  stepChangeStamina: 0.2
+  stepIncreaseStamina: 0.01
 --- !u!1001 &808854989612967398
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1450,7 +1467,11 @@ PrefabInstance:
       objectReference: {fileID: 548233266}
     - target: {fileID: 1454598124, guid: 7d88c18927f80324883e65af3583916b, type: 3}
       propertyPath: speed
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1454598124, guid: 7d88c18927f80324883e65af3583916b, type: 3}
+      propertyPath: MaxSpeed
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1413885719324461582, guid: 7d88c18927f80324883e65af3583916b,
         type: 3}

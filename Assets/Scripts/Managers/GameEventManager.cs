@@ -46,4 +46,7 @@ public static class GameEventManager
     //Enemy
     public static UnityEvent KillFirstEnemy = new();
 
+    //Stamina
+    public static UnityEvent ChangeStamina = new();
+
 }

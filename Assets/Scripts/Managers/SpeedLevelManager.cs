@@ -9,12 +9,15 @@ using UnityEngine;
 public class SpeedLevelManager : MonoBehaviour
 {
     //#region editors fields and properties
-    [SerializeField]
-    public float speed = 1;
+    [SerializeField] private float speed = 1;
+    [SerializeField] private float MaxSpeed = 1;
+
     //#endregion
     //#region public fields and properties
     //#endregion
     //#region private fields and properties
+
+    private float startSpeed;
 
     //#endregion
 
@@ -23,6 +26,7 @@ public class SpeedLevelManager : MonoBehaviour
 
     void Start()
     {
+        startSpeed = speed;
         GameEventManager.ChangeLevelSpeed?.Invoke();
     }
 
@@ -41,11 +45,6 @@ public class SpeedLevelManager : MonoBehaviour
     //#endregion
 
     //#region public methods
-    [NaughtyAttributes.Button]
-    public void UpSpeed()
-    {
-        SetLevelSpeed(this.speed += 1f);
-    }
 
     //#endregion
 
@@ -53,7 +52,16 @@ public class SpeedLevelManager : MonoBehaviour
 
     private void SetLevelSpeed(float speed)
     {
-        this.speed = speed;
+        float newSpeed = MaxSpeed * speed;
+
+        if (newSpeed < this.speed)
+        {
+            this.speed = startSpeed;
+            return;
+        }
+
+        Debug.Log(speed);
+        this.speed = newSpeed;
 
         GameEventManager.ChangeLevelSpeed?.Invoke();
     }
