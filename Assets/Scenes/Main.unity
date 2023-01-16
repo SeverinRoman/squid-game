@@ -3030,6 +3030,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -9.365984
       objectReference: {fileID: 0}
+    - target: {fileID: 808854989318041645, guid: 631931b62cfe3fb45935e7ed24d61b1c,
+        type: 3}
+      propertyPath: m_Cameras.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 808854989318041645, guid: 631931b62cfe3fb45935e7ed24d61b1c,
+        type: 3}
+      propertyPath: m_Cameras.Array.data[1]
+      value: 
+      objectReference: {fileID: 1399544217}
+    - target: {fileID: 808854989948784125, guid: 631931b62cfe3fb45935e7ed24d61b1c,
+        type: 3}
+      propertyPath: m_CameraType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 808854990163634388, guid: 631931b62cfe3fb45935e7ed24d61b1c,
         type: 3}
       propertyPath: m_RootOrder
