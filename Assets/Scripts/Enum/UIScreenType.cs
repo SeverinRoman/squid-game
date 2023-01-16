@@ -6,4 +6,5 @@ public enum UIScreenType
     StartScreen,
     LoadScreen,
     LoseScreen,
+    WinScreen,
 }

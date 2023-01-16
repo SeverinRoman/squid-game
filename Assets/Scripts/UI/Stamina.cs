@@ -13,11 +13,14 @@ public class Stamina : MonoBehaviour
     [SerializeField] private Image progress;
     [SerializeField] private float startProgress;
     [SerializeField] private float stepChangeStamina;
-    [SerializeField] private float stepIncreaseStamina;
+    [SerializeField] private float stepDecreaseStamina;
     //#endregion
     //#region public fields and properties
     //#endregion
     //#region private fields and properties
+
+    private bool isDecrease = true;
+
     //#endregion
 
 
@@ -30,17 +33,22 @@ public class Stamina : MonoBehaviour
 
     void OnEnable()
     {
+        GameEventManager.PrepereLevel.AddListener(OnPrepereLevel);
         GameEventManager.ChangeStamina.AddListener(OnChangeStamina);
     }
 
     void OnDisable()
     {
+        GameEventManager.PrepereLevel.RemoveListener(OnPrepereLevel);
         GameEventManager.ChangeStamina.RemoveListener(OnChangeStamina);
     }
 
     void Update()
     {
-        IncreaseStamina();
+        if (isDecrease)
+        {
+            DecreaseStamina();
+        }
     }
 
     //#endregion
@@ -59,10 +67,10 @@ public class Stamina : MonoBehaviour
         CheackColorProgress();
     }
 
-    private void IncreaseStamina()
+    private void DecreaseStamina()
     {
         if (progress.fillAmount <= 0) return;
-        float step = stepIncreaseStamina + progress.fillAmount * 0.05f;
+        float step = stepDecreaseStamina + progress.fillAmount * 0.1f;
 
         progress.fillAmount -= (step * Time.deltaTime);
 
@@ -94,6 +102,11 @@ public class Stamina : MonoBehaviour
     protected void OnChangeStamina()
     {
         ChangeStamina();
+    }
+
+    protected void OnPrepereLevel()
+    {
+        isDecrease = false;
     }
 
     //#endregion

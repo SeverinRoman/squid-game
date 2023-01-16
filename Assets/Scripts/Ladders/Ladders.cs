@@ -38,12 +38,14 @@ public class Ladders : MonoBehaviour
 
     void OnEnable()
     {
+        GameEventManager.PushLastEnemy.AddListener(OnPushLastEnemy);
         GameEventManager.PlayerDeath.AddListener(OnPlayerDeath);
         GameEventManager.ChangeLevelSpeed.AddListener(OnChangeLevelSpeed);
     }
 
     void OnDisable()
     {
+        GameEventManager.PushLastEnemy.RemoveListener(OnPushLastEnemy);
         GameEventManager.PlayerDeath.AddListener(OnPlayerDeath);
         GameEventManager.ChangeLevelSpeed.RemoveListener(OnChangeLevelSpeed);
     }
@@ -102,9 +104,10 @@ public class Ladders : MonoBehaviour
         tweenMove.tween.Pause();
     }
 
-
-
-
+    protected void OnPushLastEnemy()
+    {
+        tweenMove.tween.Pause();
+    }
 
     //#endregion
 }

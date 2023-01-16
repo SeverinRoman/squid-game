@@ -13,6 +13,7 @@ public enum CharacterState
     Climb = 1,
     Jump = 2,
     Death = 3,
+    ClimbStop = 4,
 }
 
 public class BaseCharacter : MonoBehaviour
@@ -20,7 +21,7 @@ public class BaseCharacter : MonoBehaviour
     //#region editors fields and properties
 
     [SerializeField] private CharacterAnimationController characterAnimationController;
-    [SerializeField] private RagdollController ragdollController;
+    [SerializeField] public RagdollController ragdollController;
 
     //#endregion
     //#region public fields and properties
@@ -84,6 +85,11 @@ public class BaseCharacter : MonoBehaviour
                     Death();
                 }
                 break;
+            case CharacterState.ClimbStop:
+                {
+                    ClimbStop();
+                }
+                break;
         }
     }
 
@@ -107,6 +113,11 @@ public class BaseCharacter : MonoBehaviour
         // characterAnimationController.Climb(false);
         ragdollController.ToggleRagdoll(true);
         // Destroy(gameObject);
+    }
+
+    public virtual void ClimbStop()
+    {
+        characterAnimationController.ClimbStop();
     }
 
 

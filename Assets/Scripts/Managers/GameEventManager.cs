@@ -24,11 +24,17 @@ public static class GameEventManager
     //LoadSceneManager
     public static UnityEvent<string> LoadScene = new();
 
+    //CameraController
+    public static UnityEvent<CameraType, Transform> SetCameraFollow = new();
+    public static UnityEvent<CameraType, bool> CameraToggle = new();
+
     //EffectManager
     public static UnityEvent<EffectType, Vector3> SpawnEffect = new();
 
     //UI
     public static UnityEvent<UIScreenType, bool> ToggleScreen = new();
+    public static UnityEvent ShowWinScreen = new();
+
 
     //InputManager
     public static UnityEvent<Vector2> InputAxis = new();
@@ -45,6 +51,7 @@ public static class GameEventManager
 
     //Enemy
     public static UnityEvent KillFirstEnemy = new();
+    public static UnityEvent PushLastEnemy = new();
 
     //Stamina
     public static UnityEvent ChangeStamina = new();
@@ -52,5 +59,8 @@ public static class GameEventManager
     //PlayerCharacter
     public static UnityEvent PlayerDeath = new();
 
+    //ProgressLevel
+
+    public static UnityEvent PrepereLevel = new();
 
 }

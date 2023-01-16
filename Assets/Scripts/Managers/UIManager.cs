@@ -32,12 +32,14 @@ public class UIManager : MonoBehaviour
     }
     private void OnEnable()
     {
+        GameEventManager.ShowWinScreen.AddListener(OnShowWinScreen);
         GameEventManager.PlayerDeath.AddListener(OnShowLose);
         GameEventManager.ToggleScreen.AddListener(OnToggleScreen);
     }
 
     private void OnDisable()
     {
+        GameEventManager.ShowWinScreen.RemoveListener(OnShowWinScreen);
         GameEventManager.PlayerDeath.RemoveListener(OnShowLose);
         GameEventManager.ToggleScreen.RemoveListener(OnToggleScreen);
     }
@@ -64,5 +66,10 @@ public class UIManager : MonoBehaviour
         ToggleScreen(UIScreenType.Ingame, false);
 
         DOVirtual.DelayedCall(2, () => ToggleScreen(UIScreenType.LoseScreen, true));
+    }
+
+    protected void OnShowWinScreen()
+    {
+        DOVirtual.DelayedCall(5, () => ToggleScreen(UIScreenType.WinScreen, true));
     }
 }

@@ -42,7 +42,11 @@ public class TweenConfig
     public void SetSettingsTween()
     {
         tween.SetEase(easing);
-        tween.SetLoops(loops, loopType);
+
+        if (onLoop)
+        {
+            tween.SetLoops(loops, loopType);
+        }
     }
     public void PlayAllTweens()
     {

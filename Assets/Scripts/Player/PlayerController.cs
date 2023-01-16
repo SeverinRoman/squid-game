@@ -39,6 +39,21 @@ public class PlayerController : MonoBehaviour
     //#endregion
 
     //#region public methods
+
+    public void ToggleInput(bool isOn)
+    {
+        if (isOn)
+        {
+            GameEventManager.InputAxis.AddListener(OnInputAxis);
+            GameEventManager.InputButton.AddListener(OnInputButton);
+        }
+        else
+        {
+            GameEventManager.InputAxis.RemoveListener(OnInputAxis);
+            GameEventManager.InputButton.RemoveListener(OnInputButton);
+        }
+    }
+
     //#endregion
 
     //#region private methods

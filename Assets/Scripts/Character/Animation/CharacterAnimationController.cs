@@ -44,6 +44,11 @@ public class CharacterAnimationController : AnimationController
 
     //#region public methods
 
+    public void ClimbStop()
+    {
+        animator.SetTrigger(animations.character.climbStop);
+    }
+
     public void Climb(bool isClimb)
     {
         DOVirtual.DelayedCall(UnityEngine.Random.Range(0, randomDelayClimb), () => animator.SetBool(animations.character.isClimb, isClimb));

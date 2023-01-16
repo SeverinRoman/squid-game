@@ -17,6 +17,8 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float randomeRangePosition;
 
     [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject obstacle;
+    [SerializeField] private GameObject pushEnemy;
     [SerializeField] private Transform world;
 
     [Header("Tweens")]
@@ -34,12 +36,15 @@ public class EnemyManager : MonoBehaviour
 
     void OnEnable()
     {
+        GameEventManager.PrepereLevel.AddListener(OnPrepereLevel);
+        GameEventManager.ChangeLevelSpeed.AddListener(OnChangeLevelSpeed);
         GameEventManager.PlayerDeath.AddListener(OnPlayerDeath);
         GameEventManager.KillFirstEnemy.AddListener(OnKillFirstEnemy);
     }
 
     void OnDisable()
     {
+        GameEventManager.PrepereLevel.AddListener(OnPrepereLevel);
         GameEventManager.PlayerDeath.RemoveListener(OnPlayerDeath);
         GameEventManager.ChangeLevelSpeed.RemoveListener(OnChangeLevelSpeed);
         GameEventManager.KillFirstEnemy.RemoveListener(OnKillFirstEnemy);
@@ -74,6 +79,8 @@ public class EnemyManager : MonoBehaviour
         };
         GameEventManager.GetLevelSpeed?.Invoke(callback);
 
+        if (tweenSpawn == null) return;
+
         tweenSpawn.timeScale = speed;
 
 
@@ -95,13 +102,28 @@ public class EnemyManager : MonoBehaviour
         GameObject enemy = Instantiate(this.enemy, position, Quaternion.identity);
         enemy.transform.SetParent(world);
 
-        MoveEnemy(enemy);
+        Move(enemy);
     }
 
-    private void MoveEnemy(GameObject enemy)
+    private void Spawn(GameObject gameObject, bool isRandomPosition = true)
     {
-        Vector3 position = new Vector3(enemy.transform.localPosition.x, endPosition.y, endPosition.z);
-        tweenMove.tween = enemy.transform.DOLocalMove(endPosition, tweenMove.duration);
+        Vector3 position = spawnPosition;
+        if (isRandomPosition)
+        {
+            position.x = UnityEngine.Random.Range(-randomeRangePosition, randomeRangePosition);
+        }
+
+
+        GameObject newGameObject = Instantiate(gameObject, position, Quaternion.identity);
+        newGameObject.transform.SetParent(world);
+
+        Move(newGameObject);
+    }
+
+    private void Move(GameObject gameObject)
+    {
+        Vector3 position = new Vector3(gameObject.transform.localPosition.x, endPosition.y, endPosition.z);
+        tweenMove.tween = gameObject.transform.DOLocalMove(endPosition, tweenMove.duration);
         tweenMove.tween.SetEase(tweenMove.easing);
 
 
@@ -116,11 +138,18 @@ public class EnemyManager : MonoBehaviour
 
         tweenMove.tween.OnComplete(() =>
         {
-            Destroy(enemy);
+            Destroy(gameObject);
         });
 
         tweenMove.tweens.Add(tweenMove.tween);
     }
+
+    private void PrepereLevel()
+    {
+        tweenSpawn.Pause();
+        Spawn(pushEnemy, false);
+    }
+
 
 
     //#endregion
@@ -142,6 +171,11 @@ public class EnemyManager : MonoBehaviour
     protected void OnPlayerDeath()
     {
         tweenSpawn.Pause();
+    }
+
+    protected void OnPrepereLevel()
+    {
+        PrepereLevel();
     }
 
     //#endregion

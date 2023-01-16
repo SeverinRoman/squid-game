@@ -15,6 +15,7 @@ public class FollowEnemyCharacter : EnemyCharactrer
     [SerializeField] private TweenConfig tweenMoving;
 
     [SerializeField] private TweenConfig tweenMovingUp;
+    [SerializeField] private TweenConfig tweenMovingDown;
     //#endregion
     //#region public fields and properties
     //#endregion
@@ -33,11 +34,13 @@ public class FollowEnemyCharacter : EnemyCharactrer
     }
     void OnEnable()
     {
+        GameEventManager.PrepereLevel.AddListener(OnPrepereLevel);
         GameEventManager.KillFirstEnemy.AddListener(OnKillFirstEnemy);
     }
 
     void OnDisable()
     {
+        GameEventManager.PrepereLevel.RemoveListener(OnPrepereLevel);
         GameEventManager.KillFirstEnemy.RemoveListener(OnKillFirstEnemy);
     }
     //#endregion
@@ -98,6 +101,22 @@ public class FollowEnemyCharacter : EnemyCharactrer
         });
     }
 
+    private void MovingDown()
+    {
+        if (!isFirstKill) return;
+
+        tweenMoving.tween.Kill();
+
+        tweenMovingDown.tween = transform.DOLocalMove(tweenMovingDown.transformPosition + transform.localPosition, tweenMovingDown.duration + UnityEngine.Random.Range(0, randomDelayMoving));
+        tweenMovingDown.SetSettingsTween();
+
+        tweenMovingDown.tween.OnComplete(() =>
+        {
+            tweenMovingDown.tween.Kill();
+            Destroy(gameObject);
+        });
+    }
+
 
     //#endregion
 
@@ -107,6 +126,11 @@ public class FollowEnemyCharacter : EnemyCharactrer
     {
         isFirstKill = true;
         GameEventManager.KillFirstEnemy.RemoveListener(OnKillFirstEnemy);
+    }
+
+    protected void OnPrepereLevel()
+    {
+        MovingDown();
     }
 
     //#endregion

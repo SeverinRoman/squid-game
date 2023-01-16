@@ -30,11 +30,14 @@ public class ProgressLevel : MonoBehaviour
     }
     void OnEnable()
     {
+
+        GameEventManager.PlayerDeath.AddListener(OnPlayerDeath);
         GameEventManager.KillFirstEnemy.AddListener(OnKillFirstEnemy);
     }
 
     void OnDisable()
     {
+        GameEventManager.PlayerDeath.RemoveListener(OnPlayerDeath);
         GameEventManager.KillFirstEnemy.RemoveListener(OnKillFirstEnemy);
     }
 
@@ -46,7 +49,7 @@ public class ProgressLevel : MonoBehaviour
     //#region private methods
     private void IncreaseStart()
     {
-        tweenProgress = DOTween.To(() => progress.fillAmount, v => progress.fillAmount = v, 1f, durationLevel);
+        tweenProgress = DOTween.To(() => progress.fillAmount, v => progress.fillAmount = v, 1f, durationLevel).SetEase(Ease.Linear);
 
         tweenProgress.OnComplete(() =>
         {
@@ -56,7 +59,8 @@ public class ProgressLevel : MonoBehaviour
 
     private void LevelComplete()
     {
-        Debug.Log("Level Complete");
+        GameEventManager.PrepereLevel?.Invoke();
+        GameEventManager.ToggleScreen?.Invoke(UIScreenType.Ingame, false);
     }
 
     //#endregion
@@ -67,6 +71,11 @@ public class ProgressLevel : MonoBehaviour
     {
         IncreaseStart();
         GameEventManager.KillFirstEnemy.RemoveListener(OnKillFirstEnemy);
+    }
+
+    protected void OnPlayerDeath()
+    {
+        tweenProgress.Pause();
     }
 
     //#endregion
