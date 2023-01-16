@@ -9,7 +9,6 @@ using Cinemachine;
 public class CameraController : MonoBehaviour
 {
     //#region editors fields and properties
-    [SerializeField] private bool dontDownCamera;
     [SerializeField] private CameraType type;
     //#endregion
     //#region public fields and properties

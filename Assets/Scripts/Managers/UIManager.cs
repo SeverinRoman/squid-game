@@ -70,6 +70,6 @@ public class UIManager : MonoBehaviour
 
     protected void OnShowWinScreen()
     {
-        DOVirtual.DelayedCall(5, () => ToggleScreen(UIScreenType.WinScreen, true));
+        DOVirtual.DelayedCall(3, () => ToggleScreen(UIScreenType.WinScreen, true));
     }
 }

@@ -44,8 +44,10 @@ public class PlayerCharacter : BaseCharacter
     //#region public methods
     public override void Death()
     {
+        GameEventManager.SetCameraFollow?.Invoke(CameraType.MainCamera, null);
         base.Death();
         GameEventManager.PlayerDeath?.Invoke();
+
     }
 
     public void PushEnemy()
@@ -71,6 +73,17 @@ public class PlayerCharacter : BaseCharacter
     protected void OnPrepereLevel()
     {
         PrepereLevel();
+    }
+
+    protected void OnTriggerEnter(Collider other)
+    {
+        GameObject gameObject = other.gameObject;
+        switch (gameObject.layer)
+        {
+            case ((int)LayerType.Obstacle):
+                Death();
+                break;
+        }
     }
 
     //#endregion

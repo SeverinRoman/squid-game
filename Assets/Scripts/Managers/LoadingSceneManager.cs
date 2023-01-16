@@ -62,7 +62,6 @@ public class LoadingSceneManager : MonoBehaviour
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / .9f);
-            Debug.Log(progress);
             GameEventManager.ChangeProgressValue?.Invoke(progress);
 
             yield return null;

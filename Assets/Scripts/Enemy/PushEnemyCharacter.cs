@@ -10,6 +10,7 @@ public class PushEnemyCharacter : EnemyCharactrer
 {
     //#region editors fields and properties
     [SerializeField] private float multiplayImpulse = 1;
+    [SerializeField] private float cheacksBodyDown = 5;
     [SerializeField] private Transform cameraFollow;
     //#endregion
     //#region public fields and properties
@@ -17,14 +18,27 @@ public class PushEnemyCharacter : EnemyCharactrer
     //#region private fields and properties
     private bool isCheackOnlyUp = false;
     private float previousY = 0;
+
+    private float currentCheacksBodyDown = 0;
     //#endregion
 
 
     //#region life-cycle callbacks
 
+    // void Update()
+    // {
+    //     if (isCheackOnlyUp)
+    //     {
+    //         CheackOnlyUp();
+    //     }
+    // }
+
     void FixedUpdate()
     {
-        CheackOnlyUp();
+        if (isCheackOnlyUp)
+        {
+            CheackOnlyUp();
+        }
     }
 
     //#endregion
@@ -44,15 +58,17 @@ public class PushEnemyCharacter : EnemyCharactrer
         ragdollController.Impulse(new Vector3(0f, speed * multiplayImpulse, 0f));
 
         GameEventManager.PushLastEnemy?.Invoke();
-        GameEventManager.SetCameraFollow?.Invoke(CameraType.PushEnemyCamera, cameraFollow);
         GameEventManager.CameraToggle?.Invoke(CameraType.MainCamera, false);
         GameEventManager.ShowWinScreen?.Invoke();
+        GameEventManager.ToggleScreen?.Invoke(UIScreenType.ScoreScreen, true);
+        GameEventManager.SetCameraFollow?.Invoke(CameraType.PushEnemyCamera, cameraFollow);
+
+        isCheackOnlyUp = true;
 
         PlayerCharacter playerCharacter = player.GetComponent<PlayerCharacter>();
 
         playerCharacter.PushEnemy();
 
-        isCheackOnlyUp = true;
     }
 
     public override void CollideEnemy(GameObject enemy)
@@ -66,12 +82,20 @@ public class PushEnemyCharacter : EnemyCharactrer
     {
         if (previousY > cameraFollow.position.y)
         {
-            GameEventManager.SetCameraFollow?.Invoke(CameraType.PushEnemyCamera, null);
+            currentCheacksBodyDown += 1;
         }
         else
         {
+            GameEventManager.ScoreIncrease?.Invoke();
             GameEventManager.SetCameraFollow?.Invoke(CameraType.PushEnemyCamera, cameraFollow);
             previousY = cameraFollow.position.y;
+        }
+
+        if (currentCheacksBodyDown >= cheacksBodyDown)
+        {
+
+            isCheackOnlyUp = false;
+            GameEventManager.SetCameraFollow?.Invoke(CameraType.PushEnemyCamera, null);
         }
     }
 

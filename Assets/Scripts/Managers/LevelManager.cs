@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using System;
 using NaughtyAttributes;
-using DG.Tweening;
 
 public class LevelManager : MonoBehaviour
 {

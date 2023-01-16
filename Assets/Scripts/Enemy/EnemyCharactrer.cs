@@ -36,6 +36,12 @@ public class EnemyCharactrer : BaseCharacter
         State = CharacterState.Death;
     }
 
+    public virtual void CollideObstacle(GameObject obstacle)
+    {
+        GameEventManager.KillFirstEnemy?.Invoke();
+        State = CharacterState.Death;
+    }
+
     //#endregion
 
     //#region private methods
@@ -46,7 +52,7 @@ public class EnemyCharactrer : BaseCharacter
 
     //#region event handlers
 
-    protected void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         GameObject gameObject = other.gameObject;
         switch (gameObject.layer)
@@ -56,6 +62,9 @@ public class EnemyCharactrer : BaseCharacter
                 break;
             case ((int)LayerType.Enemy):
                 CollideEnemy(gameObject);
+                break;
+            case ((int)LayerType.Obstacle):
+                CollideObstacle(gameObject);
                 break;
         }
     }

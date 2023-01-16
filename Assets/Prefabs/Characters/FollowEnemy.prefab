@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterAnimationController: {fileID: 7820202944419952213}
   ragdollController: {fileID: 6738315216553636624}
-  speedMovingUp: 2.5
+  speedMovingUp: 2.4
   randomDelayMoving: 1
   tweenMoving:
     duration: 1

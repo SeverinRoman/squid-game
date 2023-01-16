@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour
     //#endregion
     //#region private fields and properties
 
-    private bool isClimb = false;
-
     //#endregion
 
 

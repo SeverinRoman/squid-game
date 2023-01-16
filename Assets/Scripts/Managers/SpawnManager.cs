@@ -7,10 +7,12 @@ using DG.Tweening;
 //#endregion
 
 
-public class EnemyManager : MonoBehaviour
+public class SpawnManager : MonoBehaviour
 {
     //#region editors fields and properties
     [SerializeField] private float delaySpawn;
+    [SerializeField] private int spawnObstacle;
+    [SerializeField] private float modificatorSpeedObstacle;
 
     [SerializeField] private Vector3 spawnPosition;
     [SerializeField] private Vector3 endPosition;
@@ -29,6 +31,10 @@ public class EnemyManager : MonoBehaviour
     //#endregion
     //#region private fields and properties
     private Tween tweenSpawn;
+
+    private int currentSpawnEnemy = 0;
+
+    private List<GameObject> obstacles = new List<GameObject>();
     //#endregion
 
 
@@ -99,10 +105,25 @@ public class EnemyManager : MonoBehaviour
         Vector3 position = spawnPosition;
         position.x = UnityEngine.Random.Range(-randomeRangePosition, randomeRangePosition);
 
-        GameObject enemy = Instantiate(this.enemy, position, Quaternion.identity);
-        enemy.transform.SetParent(world);
+        GameObject gameObject = null;
 
-        Move(enemy);
+        if (currentSpawnEnemy == spawnObstacle)
+        {
+            currentSpawnEnemy = 0;
+            gameObject = Instantiate(this.obstacle, Vector3.zero, Quaternion.identity);
+            gameObject.transform.SetParent(world);
+            gameObject.transform.localPosition = position;
+            Move(gameObject, modificatorSpeedObstacle);
+            obstacles.Add(gameObject);
+        }
+        else
+        {
+            gameObject = Instantiate(this.enemy, Vector3.zero, Quaternion.identity);
+            gameObject.transform.SetParent(world);
+            gameObject.transform.localPosition = position;
+            Move(gameObject);
+        }
+        currentSpawnEnemy += 1;
     }
 
     private void Spawn(GameObject gameObject, bool isRandomPosition = true)
@@ -120,10 +141,10 @@ public class EnemyManager : MonoBehaviour
         Move(newGameObject);
     }
 
-    private void Move(GameObject gameObject)
+    private void Move(GameObject gameObject, float modificatorSpeed = 0)
     {
-        Vector3 position = new Vector3(gameObject.transform.localPosition.x, endPosition.y, endPosition.z);
-        tweenMove.tween = gameObject.transform.DOLocalMove(endPosition, tweenMove.duration);
+        Vector3 position = new Vector3(gameObject.transform.localPosition.x, endPosition.y, gameObject.transform.localPosition.z);
+        tweenMove.tween = gameObject.transform.DOLocalMove(position, tweenMove.duration + modificatorSpeed);
         tweenMove.tween.SetEase(tweenMove.easing);
 
 
@@ -148,6 +169,30 @@ public class EnemyManager : MonoBehaviour
     {
         tweenSpawn.Pause();
         Spawn(pushEnemy, false);
+
+        if (obstacles.Count == 0) return;
+
+        foreach (GameObject gameObject in obstacles)
+        {
+            if (gameObject != null)
+            {
+                gameObject.SetActive(false);
+            }
+
+        }
+    }
+
+    private void StopObstacle()
+    {
+        if (tweenMove.tweens.Count == 0) return;
+
+        foreach (Tween tween in tweenMove.tweens)
+        {
+            if (tween.Duration() == tweenMove.duration + modificatorSpeedObstacle)
+            {
+                tween.Pause();
+            }
+        }
     }
 
 
@@ -171,6 +216,8 @@ public class EnemyManager : MonoBehaviour
     protected void OnPlayerDeath()
     {
         tweenSpawn.Pause();
+
+        StopObstacle();
     }
 
     protected void OnPrepereLevel()

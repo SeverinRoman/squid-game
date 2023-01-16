@@ -34,12 +34,14 @@ public class FollowEnemyCharacter : EnemyCharactrer
     }
     void OnEnable()
     {
+        GameEventManager.PlayerDeath.AddListener(OnPlayerDeath);
         GameEventManager.PrepereLevel.AddListener(OnPrepereLevel);
         GameEventManager.KillFirstEnemy.AddListener(OnKillFirstEnemy);
     }
 
     void OnDisable()
     {
+        GameEventManager.PlayerDeath.RemoveListener(OnPlayerDeath);
         GameEventManager.PrepereLevel.RemoveListener(OnPrepereLevel);
         GameEventManager.KillFirstEnemy.RemoveListener(OnKillFirstEnemy);
     }
@@ -131,6 +133,28 @@ public class FollowEnemyCharacter : EnemyCharactrer
     protected void OnPrepereLevel()
     {
         MovingDown();
+    }
+
+    protected void OnPlayerDeath()
+    {
+        if (tweenMovingUp.tween == null)
+        {
+            MovingUp();
+        }
+    }
+
+    public override void OnTriggerEnter(Collider other)
+    {
+        GameObject gameObject = other.gameObject;
+        switch (gameObject.layer)
+        {
+            case ((int)LayerType.Player):
+                CollidePlayer(gameObject);
+                break;
+            case ((int)LayerType.Enemy):
+                CollideEnemy(gameObject);
+                break;
+        }
     }
 
     //#endregion

@@ -5,4 +5,5 @@ public enum LayerType
     Ladders = 8,
     Ragdoll = 9,
     Enemy = 10,
+    Obstacle = 12,
 }

@@ -60,7 +60,10 @@ public static class GameEventManager
     public static UnityEvent PlayerDeath = new();
 
     //ProgressLevel
-
     public static UnityEvent PrepereLevel = new();
+
+    //Score
+
+    public static UnityEvent ScoreIncrease = new();
 
 }

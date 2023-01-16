@@ -7,4 +7,5 @@ public enum UIScreenType
     LoadScreen,
     LoseScreen,
     WinScreen,
+    ScoreScreen,
 }
